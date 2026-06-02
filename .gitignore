@@ -54,3 +54,4 @@ docker-compose.override.local.yml
 # Misc
 .cache/
 .tmp/
+.vercel

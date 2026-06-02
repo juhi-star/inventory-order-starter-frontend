@@ -6,6 +6,6 @@ const labelVariants = cva("text-sm font-medium leading-none peer-disabled:cursor
 const Label = React.forwardRef(({
   className,
   ...props
-}, ref) => <LabelPrimitive.Root ref={ref} className={cn(labelVariants(), className)} />);
+}, ref) => <LabelPrimitive.Root ref={ref} className={cn(labelVariants(), className)} {...props} />);
 Label.displayName = LabelPrimitive.Root.displayName;
 export { Label };

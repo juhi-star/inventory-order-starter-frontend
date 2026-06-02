@@ -1,4 +1,3 @@
-"use client"
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import {
@@ -44,7 +43,7 @@ const FormItem = React.forwardRef
 (({ className, ...props }, ref) => {
   const id = React.useId()
   return (
-    <FormItemContext.Provider value={{ id }}><div ref={ref} className={cn("space-y-2", className)} /></FormItemContext.Provider>
+    <FormItemContext.Provider value={{ id }}><div ref={ref} className={cn("space-y-2", className)} {...props} /></FormItemContext.Provider>
   )
 })
 FormItem.displayName = "FormItem"
@@ -52,7 +51,7 @@ const FormLabel = React.forwardRef
 (({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField()
   return (
-    <Label ref={ref} className={cn(error && "text-destructive", className)} htmlFor={formItemId} />
+    <Label ref={ref} className={cn(error && "text-destructive", className)} htmlFor={formItemId} {...props} />
   )
 })
 FormLabel.displayName = "FormLabel"
@@ -62,7 +61,7 @@ const FormControl = React.forwardRef
   return (
     <Slot ref={ref} id={formItemId} aria-describedby={!error
           ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`} aria-invalid={!!error} />
+          : `${formDescriptionId} ${formMessageId}`} aria-invalid={!!error} {...props} />
   )
 })
 FormControl.displayName = "FormControl"
@@ -70,7 +69,7 @@ const FormDescription = React.forwardRef
 (({ className, ...props }, ref) => {
   const { formDescriptionId } = useFormField()
   return (
-    <p ref={ref} id={formDescriptionId} className={cn("text-sm text-muted-foreground", className)} />
+    <p ref={ref} id={formDescriptionId} className={cn("text-sm text-muted-foreground", className)} {...props} />
   )
 })
 FormDescription.displayName = "FormDescription"

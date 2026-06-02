@@ -21,6 +21,6 @@ function Badge({
 }) {
   return <div className={cn(badgeVariants({
     variant
-  }), className)} />;
+  }), className)} {...props} />;
 }
 export { Badge, badgeVariants };

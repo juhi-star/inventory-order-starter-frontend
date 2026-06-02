@@ -7,7 +7,7 @@ const Toaster = ({
   const {
     theme = "system"
   } = useTheme();
-  return <Sonner theme={theme} className="toaster group" icons={{
+  return <Sonner theme={theme} className="toaster group" {...props} icons={{
     success: <CircleCheck className="h-4 w-4" />,
     info: <Info className="h-4 w-4" />,
     warning: <TriangleAlert className="h-4 w-4" />,
