@@ -1,5 +1,4 @@
-const _jsxFileName = "";import {jsxDEV as _jsxDEV, Fragment as _Fragment} from "react/jsx-dev-runtime";import { useEffect } from "react";
-
+import { useEffect } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LowStockTable } from "@/features/dashboard/components/LowStockTable";
@@ -11,7 +10,6 @@ import {
 } from "@/features/dashboard/store/dashboard-slice";
 import { fetchDashboardSummary } from "@/features/dashboard/store/dashboard-thunks";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-
 export function DashboardPage() {
   const dispatch = useAppDispatch();
   const summary = useAppSelector(selectDashboardSummary);
@@ -22,43 +20,24 @@ export function DashboardPage() {
   }, [dispatch]);
   const isLoading = status === "loading" || (status === "idle" && !summary);
   return (
-    _jsxDEV('section', { className: "flex flex-col gap-6"  , children: [
-      _jsxDEV('header', { children: [
-        _jsxDEV('h1', { className: "text-2xl font-semibold tracking-tight"  , children: "Dashboard"}, void 0, false, {fileName: _jsxFileName, lineNumber: 27}, this)
-        , _jsxDEV('p', { className: "text-sm text-muted-foreground" , children: "Inventory & order overview."   }, void 0, false, {fileName: _jsxFileName, lineNumber: 28}, this)
-      ]}, void 0, true, {fileName: _jsxFileName, lineNumber: 26}, this)
-      , status === "failed" && error ? (
-        _jsxDEV(Alert, { variant: "destructive", children: [
-          _jsxDEV(AlertTitle, { children: "Could not load summary"   }, void 0, false, {fileName: _jsxFileName, lineNumber: 32}, this)
-          , _jsxDEV(AlertDescription, { children: error}, void 0, false, {fileName: _jsxFileName, lineNumber: 33}, this)
-        ]}, void 0, true, {fileName: _jsxFileName, lineNumber: 31}, this)
-      ) : null
-      , isLoading || !summary ? (
-        _jsxDEV(DashboardSkeleton, {}, void 0, false, {fileName: _jsxFileName, lineNumber: 37}, this )
+    <section className="flex flex-col gap-6">
+      <header>
+        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1><p className="text-sm text-muted-foreground">Inventory & order overview.</p></header>status === "failed" && error ? (
+        <Alert variant="destructive">
+          <AlertTitle>Could not load summary</AlertTitle><AlertDescription>error</AlertDescription></Alert>
+      ) : nullisLoading || !summary ? (
+        <DashboardSkeleton />
       ) : (
-        _jsxDEV(_Fragment, { children: [
-          _jsxDEV(SummaryCards, {
-            totalProducts: summary.total_products,
-            totalCustomers: summary.total_customers,
-            totalOrders: summary.total_orders,
-            lowStockCount: summary.low_stock_count,}, void 0, false, {fileName: _jsxFileName, lineNumber: 40}, this
-          )
-          , _jsxDEV(LowStockTable, { products: summary.low_stock_products,}, void 0, false, {fileName: _jsxFileName, lineNumber: 46}, this )
-        ]}, void 0, true, {fileName: _jsxFileName, lineNumber: 39}, this)
-      )
-    ]}, void 0, true, {fileName: _jsxFileName, lineNumber: 25}, this)
+        <>
+          <SummaryCards totalProducts={summary.total_products} totalCustomers={summary.total_customers} totalOrders={summary.total_orders} lowStockCount={summary.low_stock_count} /><LowStockTable products={summary.low_stock_products} /></>
+      )</section>
   );
 }
-
 function DashboardSkeleton() {
   return (
-    _jsxDEV('div', { className: "flex flex-col gap-6"  , children: [
-      _jsxDEV('div', { className: "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"    , children: 
-        Array.from({ length: 4 }).map((_, i) => (
-          _jsxDEV(Skeleton, { className: "h-28 w-full" ,}, i, false, {fileName: _jsxFileName, lineNumber: 58}, this )
-        ))
-      }, void 0, false, {fileName: _jsxFileName, lineNumber: 56}, this)
-      , _jsxDEV(Skeleton, { className: "h-72 w-full" ,}, void 0, false, {fileName: _jsxFileName, lineNumber: 61}, this )
-    ]}, void 0, true, {fileName: _jsxFileName, lineNumber: 55}, this)
+    <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">{Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton className="h-28 w-full" key={i} />
+        ))}</div><Skeleton className="h-72 w-full" /></div>
   );
 }

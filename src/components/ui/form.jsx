@@ -1,61 +1,35 @@
-const _jsxFileName = "";import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime"; function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }"use client"
-
+"use client"
 import * as React from "react"
-
 import { Slot } from "@radix-ui/react-slot"
 import {
   Controller,
   FormProvider,
   useFormContext,
-
-
-
 } from "react-hook-form"
-
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
-
 const Form = FormProvider
-
-
-
-
-
-
-
-
 const FormFieldContext = React.createContext(null)
-
 const FormField = 
-
-
 ({
   ...props
 }) => {
   return (
-    _jsxDEV(FormFieldContext.Provider, { value: { name: props.name }, children: 
-      _jsxDEV(Controller, { ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 37}, this )
-    }, void 0, false, {fileName: _jsxFileName, lineNumber: 36}, this)
+    <FormFieldContext.Provider value={{ name: props.name }}><Controller {...props} /></FormFieldContext.Provider>
   )
 }
-
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
   const { getFieldState, formState } = useFormContext()
-
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")
   }
-
   if (!itemContext) {
     throw new Error("useFormField should be used within <FormItem>")
   }
-
   const fieldState = getFieldState(fieldContext.name, formState)
-
   const { id } = itemContext
-
   return {
     id,
     name: fieldContext.name,
@@ -65,107 +39,53 @@ const useFormField = () => {
     ...fieldState,
   }
 }
-
-
-
-
-
 const FormItemContext = React.createContext(null)
-
 const FormItem = React.forwardRef
-
-
 (({ className, ...props }, ref) => {
   const id = React.useId()
-
   return (
-    _jsxDEV(FormItemContext.Provider, { value: { id }, children: 
-      _jsxDEV('div', { ref: ref, className: cn("space-y-2", className), ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 83}, this )
-    }, void 0, false, {fileName: _jsxFileName, lineNumber: 82}, this)
+    <FormItemContext.Provider value={{ id }}><div ref={ref} className={cn("space-y-2", className)} /></FormItemContext.Provider>
   )
 })
 FormItem.displayName = "FormItem"
-
 const FormLabel = React.forwardRef
-
-
 (({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField()
-
   return (
-    _jsxDEV(Label, {
-      ref: ref,
-      className: cn(error && "text-destructive", className),
-      htmlFor: formItemId,
-      ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 96}, this
-    )
+    <Label ref={ref} className={cn(error && "text-destructive", className)} htmlFor={formItemId} />
   )
 })
 FormLabel.displayName = "FormLabel"
-
 const FormControl = React.forwardRef
-
-
 (({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
-
   return (
-    _jsxDEV(Slot, {
-      ref: ref,
-      id: formItemId,
-      'aria-describedby': 
-        !error
+    <Slot ref={ref} id={formItemId} aria-describedby={!error
           ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      ,
-      'aria-invalid': !!error,
-      ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 113}, this
-    )
+          : `${formDescriptionId} ${formMessageId}`} aria-invalid={!!error} />
   )
 })
 FormControl.displayName = "FormControl"
-
 const FormDescription = React.forwardRef
-
-
 (({ className, ...props }, ref) => {
   const { formDescriptionId } = useFormField()
-
   return (
-    _jsxDEV('p', {
-      ref: ref,
-      id: formDescriptionId,
-      className: cn("text-sm text-muted-foreground", className),
-      ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 135}, this
-    )
+    <p ref={ref} id={formDescriptionId} className={cn("text-sm text-muted-foreground", className)} />
   )
 })
 FormDescription.displayName = "FormDescription"
-
 const FormMessage = React.forwardRef
-
-
 (({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(_nullishCoalesce(_optionalChain([error, 'optionalAccess', _ => _.message]), () => ( ""))) : children
-
+  const body = error ? String((error?.message ?? "")) : children
   if (!body) {
     return null
   }
-
   return (
-    _jsxDEV('p', {
-      ref: ref,
-      id: formMessageId,
-      className: cn("text-sm font-medium text-destructive", className),
-      ...props,
- children: 
-      body
-    }, void 0, false, {fileName: _jsxFileName, lineNumber: 157}, this)
+    <p ref={ref} id={formMessageId} className={cn("text-sm font-medium text-destructive", className)}>{body}</p>
   )
 })
 FormMessage.displayName = "FormMessage"
-
 export {
   useFormField,
   Form,

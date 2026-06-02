@@ -1,79 +1,33 @@
-const _jsxFileName = "";import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";import * as React from "react"
-
-import { cn } from "@/lib/utils"
-
-const Card = React.forwardRef
-
-
-(({ className, ...props }, ref) => (
-  _jsxDEV('div', {
-    ref: ref,
-    className: cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className
-    ),
-    ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 9}, this
-  )
-))
-Card.displayName = "Card"
-
-const CardHeader = React.forwardRef
-
-
-(({ className, ...props }, ref) => (
-  _jsxDEV('div', {
-    ref: ref,
-    className: cn("flex flex-col space-y-1.5 p-6", className),
-    ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 24}, this
-  )
-))
-CardHeader.displayName = "CardHeader"
-
-const CardTitle = React.forwardRef
-
-
-(({ className, ...props }, ref) => (
-  _jsxDEV('div', {
-    ref: ref,
-    className: cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    ),
-    ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 36}, this
-  )
-))
-CardTitle.displayName = "CardTitle"
-
-const CardDescription = React.forwardRef
-
-
-(({ className, ...props }, ref) => (
-  _jsxDEV('div', {
-    ref: ref,
-    className: cn("text-sm text-muted-foreground", className),
-    ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 51}, this
-  )
-))
-CardDescription.displayName = "CardDescription"
-
-const CardContent = React.forwardRef
-
-
-(({ className, ...props }, ref) => (
-  _jsxDEV('div', { ref: ref, className: cn("p-6 pt-0", className), ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 63}, this )
-))
-CardContent.displayName = "CardContent"
-
-const CardFooter = React.forwardRef
-
-
-(({ className, ...props }, ref) => (
-  _jsxDEV('div', {
-    ref: ref,
-    className: cn("flex items-center p-6 pt-0", className),
-    ...props,}, void 0, false, {fileName: _jsxFileName, lineNumber: 71}, this
-  )
-))
-CardFooter.displayName = "CardFooter"
-
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+import * as React from "react";
+import { cn } from "@/lib/utils";
+const Card = React.forwardRef(({
+  className,
+  ...props
+}, ref) => <div ref={ref} className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)} />);
+Card.displayName = "Card";
+const CardHeader = React.forwardRef(({
+  className,
+  ...props
+}, ref) => <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} />);
+CardHeader.displayName = "CardHeader";
+const CardTitle = React.forwardRef(({
+  className,
+  ...props
+}, ref) => <div ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} />);
+CardTitle.displayName = "CardTitle";
+const CardDescription = React.forwardRef(({
+  className,
+  ...props
+}, ref) => <div ref={ref} className={cn("text-sm text-muted-foreground", className)} />);
+CardDescription.displayName = "CardDescription";
+const CardContent = React.forwardRef(({
+  className,
+  ...props
+}, ref) => <div ref={ref} className={cn("p-6 pt-0", className)} />);
+CardContent.displayName = "CardContent";
+const CardFooter = React.forwardRef(({
+  className,
+  ...props
+}, ref) => <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} />);
+CardFooter.displayName = "CardFooter";
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
