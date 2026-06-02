@@ -1,4 +1,4 @@
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }import { http, HttpResponse, } from "msw";
+import { http, HttpResponse, } from "msw";
 
 
 
@@ -14,7 +14,7 @@ import { db, } from "./db";
 
 
 
-const API_BASE = _nullishCoalesce(import.meta.env.VITE_API_BASE_URL, () => ( "http://localhost:8000/api/v1"));
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api/v1";
 
 const url = (path) => `${API_BASE}${path}`;
 
@@ -249,7 +249,7 @@ function bearerUser(request) {
   if (!token) return null;
   const userId = accessTokens.get(token);
   if (!userId) return null;
-  return _nullishCoalesce(db.users.get(userId), () => ( null));
+  return db.users.get(userId) ?? null;
 }
 
 

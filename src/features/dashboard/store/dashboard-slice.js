@@ -1,4 +1,4 @@
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 
 
@@ -31,7 +31,7 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchDashboardSummary.rejected, (state, action) => {
         state.status = "failed";
-        state.error = _nullishCoalesce(action.error.message, () => ( "Failed to load dashboard"));
+        state.error = action.error.message ?? "Failed to load dashboard";
       });
   },
 });

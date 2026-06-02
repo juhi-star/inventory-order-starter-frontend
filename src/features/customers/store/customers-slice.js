@@ -1,4 +1,4 @@
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 
 
@@ -31,7 +31,7 @@ const customersSlice = createSlice({
       })
       .addCase(fetchCustomers.rejected, (state, action) => {
         state.status = "failed";
-        state.error = _nullishCoalesce(action.error.message, () => ( "Failed to load customers"));
+        state.error = action.error.message ?? "Failed to load customers";
       })
       .addCase(createCustomer.fulfilled, (state, action) => {
         state.list = [action.payload, ...state.list];

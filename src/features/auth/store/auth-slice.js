@@ -1,4 +1,4 @@
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } }import { createSelector, createSlice, } from "@reduxjs/toolkit";
+import { createSelector, createSlice, } from "@reduxjs/toolkit";
 
 
 
@@ -47,7 +47,7 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.status = "error";
-        state.error = _nullishCoalesce(_nullishCoalesce(action.payload, () => ( action.error.message)), () => ( "Login failed"));
+        state.error = action.payload ?? action.error.message ?? "Login failed";
       })
       .addCase(fetchCurrentUserThunk.pending, (state) => {
         if (state.status === "idle") state.status = "loading";

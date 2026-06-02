@@ -1,4 +1,4 @@
- function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 
 
@@ -32,7 +32,7 @@ const ordersSlice = createSlice({
       })
       .addCase(fetchOrders.rejected, (state, action) => {
         state.status = "failed";
-        state.error = _nullishCoalesce(action.error.message, () => ( "Failed to load orders"));
+        state.error = action.error.message ?? "Failed to load orders";
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
         state.current = action.payload;
@@ -43,7 +43,7 @@ const ordersSlice = createSlice({
       })
       .addCase(cancelOrder.fulfilled, (state, action) => {
         state.list = state.list.map((o) => (o.id === action.payload.id ? action.payload : o));
-        if (_optionalChain([state, 'access', _ => _.current, 'optionalAccess', _2 => _2.id]) === action.payload.id) state.current = action.payload;
+        if (state.current?.id === action.payload.id) state.current = action.payload;
       });
   },
 });
